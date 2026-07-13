@@ -1,0 +1,24 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "tieu-diem-backend",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-07-08",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+  // AUTH_TOKEN is a Workers Secret: `wrangler secret put AUTH_TOKEN`.
+  // Rotation: run secret put again with a new value, then update the client.
+  "vars": {
+    "APP_USER_ID": "owner",
+    "APP_TIMEZONE": "Asia/Bangkok",
+    "DOD_GATE_ENABLED": "true"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "tieu-diem-db",
+      "database_id": "REPLACE_WITH_YOUR_D1_DATABASE_ID",
+      "migrations_dir": "migrations"
+    }
+  ]
+  // ASSETS binding + run_worker_first added in Phase 6 (frontend host).
+}
