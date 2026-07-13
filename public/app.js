@@ -125,7 +125,7 @@ function mutateSelected(call) {
 function authGate() {
   const input = h("input", {
     type: "password",
-    placeholder: "Dán AUTH_TOKEN…",
+    placeholder: "Nhập mật khẩu…",
     style: "border:1px solid #e8e6dc;border-radius:9px;padding:11px 13px;font:400 13px 'JetBrains Mono',monospace;color:#141413;background:#fff;",
     onkeydown: (e) => {
       if (e.key === "Enter") submit();
@@ -150,7 +150,7 @@ function authGate() {
         h("span", { style: "width:11px;height:11px;border-radius:999px;background:#d97757;" }),
         h("span", { style: "font:600 17px 'Poppins',sans-serif;color:#141413;" }, "Lifetime"),
       ),
-      h("div", { style: "font:400 13px 'Lora',serif;color:#8a887f;" }, "Nhập token truy cập để mở không gian làm việc."),
+      h("div", { style: "font:400 13px 'Lora',serif;color:#8a887f;" }, "Nhập mật khẩu để mở không gian làm việc."),
       input,
       h("button", { style: "border:none;border-radius:9px;padding:11px;background:#141413;color:#faf9f5;font:500 14px 'Poppins',sans-serif;cursor:pointer;", onclick: submit }, "Mở không gian"),
     ),
@@ -196,7 +196,7 @@ function render() {
 
 setUnauthorizedHandler(() => {
   setToken("");
-  showToast("Token không hợp lệ. Nhập lại.");
+  showToast("Mật khẩu không đúng. Nhập lại.");
 });
 
 async function boot() {
