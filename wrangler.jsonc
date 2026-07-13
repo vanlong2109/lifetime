@@ -19,6 +19,12 @@
       "database_id": "REPLACE_WITH_YOUR_D1_DATABASE_ID",
       "migrations_dir": "migrations"
     }
-  ]
-  // ASSETS binding + run_worker_first added in Phase 6 (frontend host).
+  ],
+  // Static frontend host. run_worker_first=true so the Worker's explicit dispatch
+  // (/api -> Hono, /mcp -> MCP, else -> ASSETS) always runs first (finding C2).
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  }
 }

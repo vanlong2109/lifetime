@@ -1,7 +1,7 @@
 ---
 phase: 6
 title: "Frontend Wiring & Host"
-status: pending
+status: done
 priority: P2
 dependencies: [4, 5]
 ---

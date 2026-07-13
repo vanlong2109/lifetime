@@ -3,18 +3,30 @@
 Backend for "tiêu điểm" — Cloudflare Workers + D1. Records de-risk spike outcomes,
 pinned versions, and the D1 migration-safety runbook.
 
-## Spike 1 — Frontend export (`Tieu diem.dc.html`)
+## Spike 1 — Frontend export (`Tieu diem.dc.html`) — RESOLVED (P6 done)
 
-**Decision: DEFERRED (no-go for now).** Source `.dc.html` not present in repo.
-Per user scope decision, backend is built + tested first (P1–P5); frontend (P6)
-deferred until the file is provided. Backend deploy is decoupled from export
-(global acceptance already met independently at P4/P5).
+**Decision: no-go on extracting the `x-dc` runtime; GO on a vanilla port.** The
+prototype ships as a Claude Design `<x-dc>` component driven by a proprietary,
+undocumented runtime (`support.js`, `DCLogic`). Cleanly wiring that runtime to a
+REST backend (hooking its setState/lifecycle) is fragile → no-go. But the file
+fully specifies everything (exact markup + inline styles + `renderVals` compute +
+handler semantics), and its data model maps 1:1 to the API (`progressOf` = the
+domain progress rule, same task shape). So P6 = faithful port to vanilla JS + REST,
+not a blind rebuild.
 
-**Fallback acceptance (when P6 runs):** if the `x-dc` runtime cannot be cleanly
-extracted, hand-build minimal static markup covering the required screens/states:
-dashboard aggregates, Eisenhower matrix (q1–q4), Kanban columns (todo/doing/done),
-task drawer (DoD list, subtasks, method, timeBlock, progress). Wire to `/api/*`,
-render task-authored text escaped (finding M4).
+**Delivered (`public/`):** `index.html` + ES modules (`app.js`, `app-api.js`,
+`app-format.js`, `app-render.js`, `app-dashboard.js`, `app-drawer.js`). All three
+views (dashboard/matrix/board) + detail drawer, wired to `/api/*`. XSS-safe by
+construction: a `h()` hyperscript renders all task-authored text via
+`textContent` — never innerHTML (finding M4). Token in localStorage with an auth
+gate + rotation note. Hosted via Workers Assets (`run_worker_first: true` keeps
+the C2 dispatch/auth intact).
+
+**Live-verified (browser)**: auth gate → dashboard; create task; edit title with an
+`<img onerror>` payload → stored/rendered as literal text, `window.__xss`
+never set, zero `<img>` created; set quadrant, add DoD; DoD-gate blocked `done`
+while incomplete (status stayed `todo`) then allowed it once complete
+(`status:done, progress:100, completedAt` set); state persisted across reload.
 
 ## Spike 2 — MCP transport testability
 

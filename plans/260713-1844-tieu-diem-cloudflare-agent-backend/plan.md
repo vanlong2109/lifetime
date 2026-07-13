@@ -1,9 +1,9 @@
 ---
 title: "tieu diem — Cloudflare Workers task backend (REST + MCP)"
 description: "Agent-controllable personal task backend on Cloudflare Workers + D1, TDD"
-status: in-progress
+status: done
 priority: P2
-branch: ""
+branch: "master"
 tags: [cloudflare, workers, d1, hono, drizzle, mcp, tdd]
 blockedBy: []
 blocks: []
@@ -42,7 +42,7 @@ Nguồn: `plans/reports/brainstorm-260713-1844-tieu-diem-cloudflare-agent-backen
 | 3 | [Services & D1 Repository](./phase-03-services-d1-repository.md) | Done |
 | 4 | [REST Adapter & Auth](./phase-04-rest-adapter-auth.md) | Done |
 | 5 | [MCP Adapter](./phase-05-mcp-adapter.md) | Done |
-| 6 | [Frontend Wiring & Host](./phase-06-frontend-wiring-host.md) | Pending (gated) |
+| 6 | [Frontend Wiring & Host](./phase-06-frontend-wiring-host.md) | Done |
 
 Dependency: P2→P1, P3→P2, P4→P3, **P5→P3** (MCP adapter chỉ cần service layer; parity checkpoint chạy khi cả P4+P5 xong), P6→P4+P5. Phase 1 chứa 2 de-risk spike chạy TRƯỚC (frontend export, MCP-transport testability).
 
