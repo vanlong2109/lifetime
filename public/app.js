@@ -148,7 +148,7 @@ function authGate() {
         "div",
         { style: "display:flex;align-items:center;gap:10px;" },
         h("span", { style: "width:11px;height:11px;border-radius:999px;background:#d97757;" }),
-        h("span", { style: "font:600 17px 'Poppins',sans-serif;color:#141413;" }, "tiêu điểm"),
+        h("span", { style: "font:600 17px 'Poppins',sans-serif;color:#141413;" }, "Lifetime"),
       ),
       h("div", { style: "font:400 13px 'Lora',serif;color:#8a887f;" }, "Nhập token truy cập để mở không gian làm việc."),
       input,

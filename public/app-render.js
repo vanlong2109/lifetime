@@ -49,7 +49,7 @@ function sidebar(state, actions) {
       "div",
       { style: "display:flex;align-items:center;gap:10px;padding:6px 8px 20px;" },
       h("span", { style: "width:11px;height:11px;border-radius:999px;background:#d97757;flex:none;" }),
-      h("span", { style: "font:600 17px 'Poppins',sans-serif;letter-spacing:-0.02em;color:#141413;" }, "tiêu điểm"),
+      h("span", { style: "font:600 17px 'Poppins',sans-serif;letter-spacing:-0.02em;color:#141413;" }, "Lifetime"),
     ),
     h("div", { style: "padding:0 8px 6px;font:500 10.5px 'Poppins',sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:#b0aea5;" }, "Không gian làm việc"),
     h("nav", { style: "display:flex;flex-direction:column;gap:3px;" }, ...NAV.map(([k, l]) => navBtn(state.view, k, l, actions))),

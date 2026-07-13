@@ -5,6 +5,11 @@
   "compatibility_date": "2026-07-08",
   "compatibility_flags": ["nodejs_compat"],
   "observability": { "enabled": true },
+  // Custom domain (zone your-domain.example.com must be on this Cloudflare account).
+  // Wrangler provisions the Worker custom domain + DNS record on deploy.
+  // Keep workers.dev URL alive as a fallback alongside the custom domain.
+  "routes": [{ "pattern": "your-domain.example.com", "custom_domain": true }],
+  "workers_dev": true,
   // AUTH_TOKEN is a Workers Secret: `wrangler secret put AUTH_TOKEN`.
   // Rotation: run secret put again with a new value, then update the client.
   "vars": {
