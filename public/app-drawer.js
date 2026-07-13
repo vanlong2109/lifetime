@@ -113,7 +113,12 @@ export function renderDrawer(sel, actions) {
       "div",
       { style: "position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:16px 22px;background:rgba(250,249,245,0.94);backdrop-filter:blur(6px);border-bottom:1px solid #e8e6dc;" },
       h("span", { style: `display:inline-flex;padding:3px 9px;border-radius:999px;font:500 11px 'Poppins',sans-serif;color:${qc};background:${qc}1f;` }, QLABEL[sel.quadrant] || "—"),
-      h("button", { style: "border:1px solid #e8e6dc;background:#fff;width:30px;height:30px;border-radius:8px;cursor:pointer;color:#8a887f;font-size:17px;", onclick: actions.closeDrawer }, "✕"),
+      h(
+        "div",
+        { style: "display:flex;align-items:center;gap:8px;" },
+        h("button", { style: "display:flex;align-items:center;gap:6px;border:1px solid #e7d3ce;background:#fbf1ef;height:30px;padding:0 11px;border-radius:8px;cursor:pointer;color:#c07a6e;font:500 12.5px 'Poppins',sans-serif;", onclick: () => actions.deleteTask(sel.id) }, "🗑 Xoá việc"),
+        h("button", { style: "border:1px solid #e8e6dc;background:#fff;width:30px;height:30px;border-radius:8px;cursor:pointer;color:#8a887f;font-size:17px;", onclick: actions.closeDrawer }, "✕"),
+      ),
     ),
     body,
   );

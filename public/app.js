@@ -101,6 +101,15 @@ const actions = {
   toggleSubtask: (sid, done) => mutateSelected(() => api.toggleSubtask(sid, done)),
   deleteSubtask: (sid) => mutateSelected(() => api.deleteSubtask(sid)),
   addSubtask: (title) => mutateSelected(() => api.addSubtask(state.selected.id, title)),
+  // Delete cascades to the task's DoD + subtasks, so confirm first.
+  deleteTask: (id) =>
+    guard(async () => {
+      if (!window.confirm("Xoá việc này? Mọi tiêu chí DoD và subtask kèm theo cũng bị xoá.")) return;
+      await api.deleteTask(id);
+      state.selected = null;
+      await reloadLists();
+      showToast("Đã xoá việc.");
+    }),
 };
 
 // Run a mutation that returns the updated TaskDetail, refresh the drawer + lists.
