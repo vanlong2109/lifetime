@@ -2,20 +2,20 @@
 
 Cloudflare Workers + D1. Backend is `/api/*` (REST) + `/mcp` (MCP) on one Worker.
 
-## Live deployment (2026-07-13)
+## Deployment reference
 
-- Worker URL: `https://tieu-diem-backend.your-subdomain.workers.dev`
-- D1 database: `tieu-diem-db` (id `REPLACE_WITH_YOUR_D1_DATABASE_ID`, region APAC)
-- Migrations applied: `0000_init`, `0001_add_child_indexes`
-- Config: `wrangler.jsonc` (bindings `DB`; vars `APP_USER_ID`, `APP_TIMEZONE`, `DOD_GATE_ENABLED`)
-- Secret: `AUTH_TOKEN` (Workers Secret; NOT in the repo). Fail-closed — if unset, all `/api` and `/mcp` requests are denied.
+- Worker URL: `https://<your-worker>.<subdomain>.workers.dev` (hoặc custom domain của bạn)
+- D1 database: tạo bằng `wrangler d1 create <your-db>`, dán `database_id` vào `wrangler.jsonc`
+- Migrations: `0000_init`, `0001_add_child_indexes`
+- Config: `wrangler.jsonc` (binding `DB`; vars `APP_USER_ID`, `APP_TIMEZONE`, `DOD_GATE_ENABLED`)
+- Secret: `AUTH_TOKEN` (Workers Secret; NOT in the repo). Fail-closed — chưa set thì mọi `/api` và `/mcp` bị từ chối.
 
 ## First-time deploy (from scratch)
 
 ```bash
 npm install
-wrangler d1 create tieu-diem-db           # copy database_id into wrangler.jsonc
-wrangler d1 migrations apply tieu-diem-db --remote
+wrangler d1 create <your-db>           # copy database_id into wrangler.jsonc
+wrangler d1 migrations apply <your-db> --remote
 wrangler deploy
 wrangler secret put AUTH_TOKEN            # paste a strong random token
 ```
@@ -25,7 +25,7 @@ wrangler secret put AUTH_TOKEN            # paste a strong random token
 ```bash
 npm run test                              # 87 tests must pass
 npm run db:generate                       # only if src/db/schema.ts changed
-wrangler d1 migrations apply tieu-diem-db --remote   # only if a new migration exists
+wrangler d1 migrations apply <your-db> --remote   # only if a new migration exists
 wrangler deploy
 ```
 
@@ -36,7 +36,7 @@ Migrations MUST be additive / in-place (`ALTER TABLE ADD/DROP/RENAME COLUMN`,
 children while data exists — in D1 the cascade fires on `DROP TABLE` even with
 `PRAGMA defer_foreign_keys` (proven in `test/migrations.test.ts`), deleting the
 children. Before any prod migration on a non-empty DB, take a Time-Travel
-bookmark (`wrangler d1 time-travel info tieu-diem-db`); there are no
+bookmark (`wrangler d1 time-travel info <your-db>`); there are no
 down-migrations — recover by forward-fix or Time-Travel restore.
 
 ## Secret rotation

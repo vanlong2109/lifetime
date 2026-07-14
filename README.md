@@ -6,15 +6,11 @@ Chạy trên Cloudflare Workers + D1. Một domain core duy nhất, phơi ra qua
 một **REST API** cho giao diện web và một **MCP server** cho AI agent. Cùng một logic
 nghiệp vụ, cùng một database → agent và người dùng thấy dữ liệu giống hệt nhau.
 
-## Live
+> Đây là **mã nguồn** để bạn **tự deploy một bản của riêng mình** lên Cloudflare Workers
+> (chạy trọn trong hạn mức **Free**), rồi điều khiển bằng AI agent qua MCP.
+> Bắt đầu ở [Tự host lên Cloudflare Workers](#tự-host-lên-cloudflare-workers).
 
-- Ứng dụng: <https://your-domain.example.com>
-- Worker (fallback): <https://tieu-diem-backend.your-subdomain.workers.dev>
-- `GET /health` công khai (không cần auth); mọi `/api/*` và `/mcp` cần bearer token.
-
-> **Lưu ý:** URL live ở trên là **instance riêng của tác giả** (không mở token cho người
-> ngoài). Repo này chia sẻ **mã nguồn** để bạn **tự deploy một bản của chính mình** lên
-> Cloudflare — chạy trọn trong hạn mức **Free**. Xem [Tự host lên Cloudflare Workers](#tự-host-lên-cloudflare-workers).
+Sau khi deploy: `GET /health` công khai (không cần auth); mọi `/api/*` và `/mcp` cần bearer token.
 
 ## Tính năng
 
@@ -82,7 +78,7 @@ Lệnh in ra một khối cấu hình kèm `database_id` — **copy giá trị `
 **3) Sửa `wrangler.jsonc`** — bắt buộc, vì các giá trị hiện tại là của tác giả, giữ nguyên sẽ **deploy lỗi**:
 - `name` → tên worker của bạn, ví dụ `"lifetime-<tên-bạn>"`.
 - `d1_databases[0].database_id` → dán `database_id` vừa tạo ở bước 2 (giữ `database_name` = `"lifetime-db"` cho khớp).
-- **Xoá nguyên khối `"routes"`** → đó là custom domain `your-domain.example.com` của tác giả (bạn không sở hữu zone này). Bỏ đi thì app tự chạy ở `https://<name>.<subdomain>.workers.dev` nhờ `"workers_dev": true`.
+- **Xoá nguyên khối `"routes"`** → đó là custom domain riêng của tác giả (bạn không sở hữu zone đó). Bỏ đi thì app tự chạy ở `https://<name>.<subdomain>.workers.dev` nhờ `"workers_dev": true`.
 - *(tuỳ chọn)* đổi `vars.APP_TIMEZONE` sang múi giờ của bạn (mặc định `Asia/Bangkok`).
 
 **4) Tạo bảng (migration) rồi deploy**
