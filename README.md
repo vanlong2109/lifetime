@@ -197,4 +197,4 @@ docs/          # deployment-guide, spike-notes
 
 ## Giấy phép
 
-Dùng cá nhân.
+[MIT](LICENSE) — tự do dùng, sửa, fork, tự host; chỉ cần giữ ghi công tác giả. Không bảo hành.
