@@ -7,3 +7,6 @@ dist/
 .DS_Store
 
 *.zip
+
+# Tài liệu tham khảo cá nhân (không thuộc app)
+Tai-lieu-APA-35-130/
