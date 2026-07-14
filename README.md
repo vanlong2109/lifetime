@@ -75,11 +75,17 @@ npx wrangler d1 create lifetime-db
 ```
 Lệnh in ra một khối cấu hình kèm `database_id` — **copy giá trị `database_id`** đó.
 
-**3) Sửa `wrangler.jsonc`** — bắt buộc, vì các giá trị hiện tại là của tác giả, giữ nguyên sẽ **deploy lỗi**:
-- `name` → tên worker của bạn, ví dụ `"lifetime-<tên-bạn>"`.
-- `d1_databases[0].database_id` → dán `database_id` vừa tạo ở bước 2 (giữ `database_name` = `"lifetime-db"` cho khớp).
-- **Xoá nguyên khối `"routes"`** → đó là custom domain riêng của tác giả (bạn không sở hữu zone đó). Bỏ đi thì app tự chạy ở `https://<name>.<subdomain>.workers.dev` nhờ `"workers_dev": true`.
-- *(tuỳ chọn)* đổi `vars.APP_TIMEZONE` sang múi giờ của bạn (mặc định `Asia/Bangkok`).
+**3) Tạo `wrangler.jsonc` từ file mẫu rồi điền giá trị của bạn**
+```bash
+cp wrangler.jsonc.example wrangler.jsonc
+```
+Mở `wrangler.jsonc` và sửa:
+- `name` → tên worker của bạn, ví dụ `lifetime-<tên-bạn>`.
+- `d1_databases[0].database_id` → dán `database_id` tạo ở bước 2 (giữ `database_name` = `lifetime-db` cho khớp).
+- *(tuỳ chọn)* custom domain: bỏ comment khối `"routes"` và điền domain **bạn sở hữu**; không thì để nguyên, app chạy ở `https://<name>.<subdomain>.workers.dev` (nhờ `"workers_dev": true`).
+- *(tuỳ chọn)* đổi `vars.APP_TIMEZONE` sang múi giờ của bạn.
+
+> `wrangler.jsonc` đã nằm trong `.gitignore` — giá trị riêng của bạn **không bị commit**.
 
 **4) Tạo bảng (migration) rồi deploy**
 ```bash

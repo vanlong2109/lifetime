@@ -10,3 +10,6 @@ dist/
 
 # Tài liệu tham khảo cá nhân (không thuộc app)
 Tai-lieu-APA-35-130/
+
+# Config deploy cá nhân (domain/db/id) — dùng wrangler.jsonc.example làm mẫu
+wrangler.jsonc

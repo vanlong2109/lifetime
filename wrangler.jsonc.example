@@ -1,0 +1,33 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Copy this file to `wrangler.jsonc`, then fill in your own values.
+  // `wrangler.jsonc` is gitignored so your personal config stays local.
+  "name": "lifetime",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-07-08",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+  "workers_dev": true,
+  // Optional custom domain — only if you own the zone on your Cloudflare account.
+  // Leave commented to serve at https://<name>.<subdomain>.workers.dev instead.
+  // "routes": [{ "pattern": "your-domain.example.com", "custom_domain": true }],
+  "vars": {
+    "APP_USER_ID": "owner",
+    "APP_TIMEZONE": "UTC",
+    "DOD_GATE_ENABLED": "true"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "lifetime-db",
+      // Run `wrangler d1 create lifetime-db` and paste the printed id here:
+      "database_id": "REPLACE_WITH_YOUR_D1_DATABASE_ID",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  }
+}
